@@ -16,7 +16,8 @@ steps:
   ]
 
 # deploy container image ke cloud run (region asia-southeast2)
-- name: gcr.io/cloud-builders/docker
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
   args: [
     'run',
     'deploy',
@@ -31,7 +32,8 @@ steps:
   ]
 
 # deploy container image ke cloud run (region us-central1)
-- name: gcr.io/cloud-builders/docker
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
   args: [
     'run',
     'deploy',
