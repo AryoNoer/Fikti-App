@@ -3,7 +3,7 @@ FROM node:22-alpine3.19
 WORKDIR /app
 
 # Copy package.json and package-lock.json (if available)
-COPY package.json yarn.lock ./
+COPY package.json
 
 # Install dependencies, including those needed to build the app
 RUN yarn install
