@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies, including those needed to build the app
-RUN npm install --production
+RUN npm install
 
 # Copy the rest of the application code
 COPY . .
