@@ -1,23 +1,33 @@
-FROM node:22-alpine3.19
+# Menggunakan image node sebagai base image
+FROM node:18-alpine AS builder
 
+# Set working directory
 WORKDIR /app
 
-RUN apk add --no-cache git
-
-# Copy package.json and package-lock.json (if available)
+# Salin file package.json dan package-lock.json untuk menginstall dependencies
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --production
+RUN npm install
 
-# Copy the rest of the application code
+# Salin semua file project ke dalam container
 COPY . .
 
-# Build the Next.js application
+# Build aplikasi
 RUN npm run build
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Stage final untuk menjalankan aplikasi
+FROM node:18-alpine AS runner
 
-# Start the application in production mode
+WORKDIR /app
+
+# Copy output build dari stage builder
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/package*.json ./
+
+# Install production dependencies
+RUN npm install --production
+
+# Expose port dan jalankan aplikasi
+EXPOSE 3000
 CMD ["npm", "run", "start"]
