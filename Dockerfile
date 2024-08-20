@@ -4,9 +4,6 @@ WORKDIR /app
 
 RUN apk add --no-cache git
 
-# Copy package.json and package-lock.json (if available)
-COPY package*.json ./
-
 # Install dependencies
 RUN npm install --production
 
