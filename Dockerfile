@@ -1,6 +1,9 @@
 # Menggunakan image node sebagai base image
 FROM node:18-alpine AS builder
 
+# Install git
+RUN apk add --no-cache git
+
 # Set working directory
 WORKDIR /app
 
